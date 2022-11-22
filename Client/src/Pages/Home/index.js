@@ -37,7 +37,7 @@ function Home() {
 
   // OnClick Function for Leeture Less
   const lettureLess = () => {
-    if (price >= 3) {
+    if (price > 3) {
       setPrice(price - 0.5);
       if (lettuceCount >= 0) {
         setLettuceCount(lettuceCount - 1);
@@ -68,7 +68,7 @@ function Home() {
 
   // OnClick Function for Bacon less
   const baconLess = () => {
-    if (price >= 3) {
+    if (price > 3) {
       setPrice(price - 0.7);
       console.log("baconCount:", baconCount);
       setBaconCount(baconCount - 1);
@@ -96,7 +96,7 @@ function Home() {
 
   // OnClick Function for Cheese Less
   const cheeseLess = () => {
-    if (price >= 3) {
+    if (price > 3) {
       setPrice(price - 0.4);
       setCheeseCount(cheeseCount - 1);
       const findIndexofObject = data.findIndex((object) => {
@@ -120,11 +120,11 @@ function Home() {
 
   // OnClick Function for Meat Less
   const meatLess = () => {
-    if (price >= 3) {
+    if (price > 3) {
       setPrice(price - 1.3);
       setMeatCount(meatCount - 1);
       const findIndexofObject = data.findIndex((object) => {
-        return object.cheese === meatCount - 1;
+        return object.meat === meatCount - 1;
       });
       data.splice(findIndexofObject, 1);
     }

@@ -20,7 +20,7 @@ const Login = async (req, res) => {
   
           // Create JWT TOKEN
           const token = await User.createJWTAuthToken(user);
-          console.log("Your JWT Token ->", token);
+
           // Send user in Response
           res.status(200).json (token);
           return;
@@ -28,7 +28,7 @@ const Login = async (req, res) => {
           res.status(400).send("Wrong User");
         }
       } else {
-        console.log("Wrong User....");
+
         res.status(400).send("Wrong User");
       }
     } catch (error) {

@@ -33,13 +33,14 @@ MenuSchema.statics.saveNewMenu = async function (
   cheeseCount,
   meatCount
 ) {
-  const menu = new this({
+  const menu = await new this({
     userID: userId,
     lettuceCount: lettuceCount,
     baconCount: baconCount,
     cheeseCount: cheeseCount,
     meatCount: meatCount,
   });
+  // save the menu
   await menu.save();
   console.log("Menu Save");
 };
@@ -48,7 +49,8 @@ MenuSchema.statics.saveNewMenu = async function (
 
 MenuSchema.statics.getMenu = async function (userId) {
   const menu = this;
-  await this.findOne({ userId }).exec();
+  await menu.findOne({ userId }).exec();
+  console.log (menu);
   return menu;
 };
 
@@ -60,7 +62,8 @@ MenuSchema.statics.updateMenu = async function (
   cheeseCount,
   meatCount
 ) {
-  const menu = await this.update(
+
+  const menu = await this.updateMany(
     { userID: userId },
     {
       lettuceCount: lettuceCount,

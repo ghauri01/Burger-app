@@ -9,8 +9,6 @@ function NavBar() {
   const user = JSON.parse(window.localStorage.getItem("user"));
   let navigate = useNavigate();
   const logout = async () => {
-    console.log("In Logout");
-
     await axios.post("http://localhost:5000/logout", user).then((res) => {
       if (res.status === 400 || !res) {
         alert("There is some problem please wait ");
