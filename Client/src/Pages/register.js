@@ -14,8 +14,13 @@ export default function Register() {
   // on Sumbit Form
   const onSumbitForm = async (e) => {
     e.preventDefault();
-    if (!name || !email || !password) {
-      alert("Please Fill Full Form");
+    if (!name || !email || !password || password.length < 6) {
+      if (password.length < 6) {
+        alert ('Password length should be greater then 6');
+      } else {
+        alert("Please Fill Full Form");
+      }
+      
     } else {
       await axios
         .post("http://localhost:5000/register", inputData)
