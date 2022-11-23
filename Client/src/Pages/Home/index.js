@@ -50,7 +50,7 @@ function Home() {
     }
 
     // console.log(lettuceCount);
-    else {
+    if (lettuceCount === 1) {
       // seting flag false for disbale button
       setLettuceFlag(true);
     }
@@ -141,26 +141,26 @@ function Home() {
     if (!user) {
       navigate("/login");
     }
-    // const res = await axios.post("http://localhost:5000/home", user);
-    // if (res.status === 400 || !res) {
-    //   navigate("/login");
-    // }
   };
 
   // onClick  Save Button
   const saveMenu = async () => {
-    console.log(baconCount);
-    const res = await axios.post("http://localhost:5000/savemenu", {
-      token: user,
-      lettuce: lettuceCount,
-      bacon: baconCount,
-      cheese: cheeseCount,
-      meat: meatCount,
-    });
-    if (res.status === 400 || !res) {
-      alert("There is problem while saveing..");
+    const middleWareResponse = await axios.post("http://localhost:5000/home", user);
+    if (middleWareResponse.status === 400 || !middleWareResponse) {
+      navigate("/login");
     } else {
-      alert("Menu Save");
+      const res = await axios.post("http://localhost:5000/savemenu", {
+        token: user,
+        lettuce: lettuceCount,
+        bacon: baconCount,
+        cheese: cheeseCount,
+        meat: meatCount,
+      });
+      if (res.status === 400 || !res) {
+        alert("There is problem while saveing..");
+      } else {
+        alert("Menu Save");
+      }
     }
   };
 
@@ -178,26 +178,19 @@ function Home() {
 
     for (let i = 1; i < bacon; i++) {
       dbData.push({ ["bacon"]: i });
-
-  
     }
 
     // Cheese
     for (let i = 1; i < cheese; i++) {
       dbData.push({ ["cheese"]: i });
-
     }
 
     // Meat
     for (let i = 1; i < meat; i++) {
       dbData.push({ ["meat"]: i });
-
     }
 
-    const finalPrice = ((meat * 1.7) + (lettuce * 0.5) + (bacon * 0.7) + (cheese * 0.4));
-    console.log (finalPrice);
-    console.log (price)
-
+    const finalPrice = meat * 1.3 + lettuce * 0.5 + bacon * 0.7 + cheese * 0.4 + .10;
     // Lettuce
     setLettuceFlag(false);
     setLettuceCount(lettuce);
@@ -206,7 +199,7 @@ function Home() {
     setBaconFlag(false);
     //Cheese
     setCheeseCount(cheese);
-    setCheeseFlag (false);
+    setCheeseFlag(false);
     // Meat
     setMeatCount(meat);
     setMeatFlag (false);
@@ -236,6 +229,7 @@ function Home() {
     userLoginVerify();
     // Update the sates form Database
     reStateTheDataFormDataBase();
+    
   }, []);
 
   return (
