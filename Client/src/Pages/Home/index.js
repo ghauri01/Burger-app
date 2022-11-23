@@ -37,9 +37,9 @@ function Home() {
 
   // OnClick Function for Leeture Less
   const lettureLess = () => {
-    if (price > 3) {
+    if (price > 3 && lettuceCount > 1) {
       setPrice(price - 0.5);
-      if (lettuceCount >= 0) {
+      if (lettuceCount > 1) {
         setLettuceCount(lettuceCount - 1);
         const findIndexofObject = data.findIndex((object) => {
           return object.letture === lettuceCount - 1;
@@ -50,7 +50,7 @@ function Home() {
     }
 
     // console.log(lettuceCount);
-    if (lettuceCount === 1) {
+    else {
       // seting flag false for disbale button
       setLettuceFlag(true);
     }
@@ -68,7 +68,7 @@ function Home() {
 
   // OnClick Function for Bacon less
   const baconLess = () => {
-    if (price > 3) {
+    if (price > 3 && baconCount > 1) {
       setPrice(price - 0.7);
       console.log("baconCount:", baconCount);
       setBaconCount(baconCount - 1);
@@ -79,7 +79,6 @@ function Home() {
         data.splice(findIndexofObject, 1);
       }
     }
-    console.log(baconCount);
     if (baconCount === 1) {
       // seting flag false for disbale button
       setBaconFlag(true);
@@ -96,7 +95,7 @@ function Home() {
 
   // OnClick Function for Cheese Less
   const cheeseLess = () => {
-    if (price > 3) {
+    if (price >= 3 && cheeseCount > 1) {
       setPrice(price - 0.4);
       setCheeseCount(cheeseCount - 1);
       const findIndexofObject = data.findIndex((object) => {
@@ -120,15 +119,14 @@ function Home() {
 
   // OnClick Function for Meat Less
   const meatLess = () => {
-    if (price > 3) {
+    if (price >= 3 && meatCount > 1) {
       setPrice(price - 1.3);
       setMeatCount(meatCount - 1);
       const findIndexofObject = data.findIndex((object) => {
         return object.meat === meatCount - 1;
       });
       data.splice(findIndexofObject, 1);
-    }
-    if (meatCount === 1) {
+    } else {
       // seting flag false for disbale button
       setMeatFlag(true);
     }
@@ -168,53 +166,54 @@ function Home() {
 
   // When User Login to Restate the state
   const responseStateChanges = (lettuce, bacon, cheese, meat) => {
-    
     let dbData = [...data];
-    
+
     // Lettuce
 
-    for (let i = 0; i < lettuce; i++) {
+    for (let i = 1; i < lettuce; i++) {
       dbData.push({ ["letture"]: i });
     }
 
     // Bacon
 
-    for (let i = 0; i < bacon; i++) {
+    for (let i = 1; i < bacon; i++) {
       dbData.push({ ["bacon"]: i });
+
+  
     }
 
     // Cheese
-    for (let i = 0; i < cheese; i++) {
+    for (let i = 1; i < cheese; i++) {
       dbData.push({ ["cheese"]: i });
+
     }
 
     // Meat
-    for (let i = 0; i < meat; i++) {
+    for (let i = 1; i < meat; i++) {
       dbData.push({ ["meat"]: i });
+
     }
+
+    const finalPrice = ((meat * 1.7) + (lettuce * 0.5) + (bacon * 0.7) + (cheese * 0.4));
+    console.log (finalPrice);
+    console.log (price)
 
     // Lettuce
-    setPrice(price + 0.5 * lettuce);
-    setLettuceCount(lettuce);
     setLettuceFlag(false);
-    
+    setLettuceCount(lettuce);
     // Bacon
-    setPrice(price + 0.7 * bacon);
     setBaconCount(bacon);
     setBaconFlag(false);
-
     //Cheese
-    setPrice(price + 0.4 * cheese);
     setCheeseCount(cheese);
-    setCheeseFlag(false);
-
+    setCheeseFlag (false);
     // Meat
-    setPrice(price + 1.3 * meat);
     setMeatCount(meat);
-    setMeatFlag(false);
-
+    setMeatFlag (false);
     // Set Data for map
     setData(dbData);
+    // Set Price
+    setPrice(finalPrice);
   };
 
   // Check if there is some save menu in database
@@ -238,7 +237,7 @@ function Home() {
     // Update the sates form Database
     reStateTheDataFormDataBase();
   }, []);
-  
+
   return (
     <div>
       <div className="burger-container">
