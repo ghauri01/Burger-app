@@ -229,6 +229,7 @@ function Home() {
     userLoginVerify();
     // Update the sates form Database
     reStateTheDataFormDataBase();
+    console.log (user);
     
   }, []);
 

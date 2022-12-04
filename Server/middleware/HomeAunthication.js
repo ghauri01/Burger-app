@@ -3,7 +3,6 @@ const User = require("../models/user");
 require("dotenv").config();
 const HomeAuthication = async (req, res) => {
     let token = req.body.data;
-    console.log(token);
     if (token) {
       const jwtTokenVerify = await User.verifyJWTAuthToken (token);
      // console.log(jwtTokenVerify);
@@ -15,7 +14,7 @@ const HomeAuthication = async (req, res) => {
         res.status(200).send("User is Login...");
       }
     } else {
-      res.status(400);
+      res.status(400).send ('User not Find');
     }
 };
 
